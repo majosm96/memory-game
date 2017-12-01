@@ -1,0 +1,89 @@
+.game {
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    list-style: none;
+    padding: 0;
+}
+
+.cards {
+    width: 25%;
+    position: relative;
+    flex: 1 auto;
+    padding: 20px;
+
+    @include query(350px) {
+        padding: 22px;
+    }
+
+    @include query(380px) {
+        width: 23%;
+        padding: 25px;
+    }
+    
+    @include query(450px) {
+        width: 20%;
+        padding: 30px;
+    }
+    
+     @include query(550px) {
+        padding: 33px;
+    }
+
+    @include query(650px) {
+        padding: 38px;
+    }
+
+    @include query(800px) {
+        padding: 40px;
+    }
+
+    @include query(900px) {
+        padding: 45px;
+    }
+
+    @include query(1100px) {
+        padding: 50px;
+    }
+}
+
+.card {
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.flip-container {
+  perspective: 1000px;
+}
+
+
+// //Give the perpective
+ .flipper {
+   transition: 0.6s;
+   transform-style: preserve-3d;
+   position: relative;
+ }
+
+
+.flip-container {
+   transform: rotateY(180deg);
+}
+
+.front {
+    transform: rotateY(0deg);
+}
+
+.back {
+    transform: rotateY(180deg);
+}
+
+//Class to back face cards
+.flipper-test:hover {
+     transform: rotateY(180deg);
+}

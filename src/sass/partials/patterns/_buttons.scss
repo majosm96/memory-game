@@ -1,0 +1,36 @@
+.btn {
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+
+    a {
+        border: none;
+    }
+
+    p {
+      margin: 0;
+    }
+}
+
+.btn-principal {
+	background: $red-variant;
+	color: #fff;
+	border: 2px solid #fff;
+	border-radius: 10px;
+}
+
+.btn-principal:hover {
+	background: #f28f9c;
+	color: #fff;
+	border: 2px solid #fff;
+}
+
+.btn-principal__replay {
+    float: right;
+    margin: $space-base 0 0 0;
+
+    @include query(975px) {
+        margin: $space-base $space-medium 0 0;
+    }
+}
