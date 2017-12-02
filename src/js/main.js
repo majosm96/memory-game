@@ -1,76 +1,98 @@
-// let countScore;
-// let time;
-let scoreIncrementer;
-let flippedCards;
-const score = document.getElementsById('score');
+"use strict";
+(function() {
+  var countDown;
+  var timeLoss;
+  var scoreIncrementer;
+  var currentScore = 0;
+  var flippedCards;
+  var highestScore;
+  var score = document.getElementsByClassName("score")[0];
+  var timer = document.getElementsByClassName("timer")[0];
+  var endGame = document.getElementsByClassName("game-over")[0];
 
+  function dealDeck() {
+    var card = document.getElementsByClassName("card");
+    var pics = ["url('../img/raspberry.png')", "url('../img/orange.png')", "url('../img/banana.png')", "url('../img/apple.png')", "url('../img/blue_berry.png')", "url('../img/cherry.png')", "url('../img/cherry.png')", "url('../img/banana.png')", "url('../img/grapes.png')", "url('../img/lemon.png')", "url('../img/lemon.png')", "url('../img/raspberry.png')", "url('../img/watermelon.png')", "url('../img/strawberry.png')", "url('../img/watermelon.png')", "url('../img/orange.png')", "url('../img/apple.png')", "url('../img/blue_berry.png')", "url('../img/strawberry.png')", "url('../img/grapes.png')"];
 
-function shuffle(array) {
-  let currentIndex = array.length;
-  let temporaryValue;
-  let randomIndex;
-
-  // While there remain elements to shuffle...
-  while (currentIndex !== 0) {
-    // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-
-    // And swap it with the current element.
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
-
-  return array;
-}
-
-function flipBack() {
-  flippedCards[0].classList.toggle('flipper-test');
-  flippedCards[1].classList.toggle('flipper-test');
-
-  flippedCards = [];
-}
-
-function checkMatch() {
-  if (flippedCards[0].src === flippedCards[1].src) {
+    scoreIncrementer = 0;
     flippedCards = [];
-    const sumScore = scoreIncrementer + scoreIncrementer;
-    score.innerText = `0, ${sumScore}!`;
-  } else {
-    setTimeout(flipBack, 1500);
+
+    endGame.style.display = "none";
+
+    shuffle(pics);
+
+    for (var i = 0; i < card.length; i++) {
+      if (card[i].classList.contains("flipped")) {
+        card[i].classList.toggle("flipped");
+      }
+      card[i].querySelector(".back").style.backgroundImage = pics[i];
+      card[i].addEventListener("click", flip);
+    }
+
+    score.innerText = currentScore;
   }
-}
 
-function flip() {
-  if (!this.classList.contains('flipper-test') && flippedCards.length < 2) {
-    this.classList.toggle('flipper-test');
+  function flip() {
+    if (!this.classList.contains("flipped") && flippedCards.length < 2) {
+      this.classList.toggle("flipped");
 
-    flippedCards.push(this);
+      flippedCards.push(this);
 
-    if (flippedCards.length === 2) {
-      checkMatch();
+      if (flippedCards.length === 2) {
+        checkMatch();
+      }
     }
   }
-}
 
-function createGameBoard() {
-  const imgs = document.getElementsByClassName('fruits');
-  const fruits = ['img/raspberry.png', 'img/orange.png', 'img/banana.png', 'img/apple.png', 'img/blue_berry.png', 'img/cherry.png', 'img/cherry.png', 'img/banana.png', 'img/grapes.png', 'img/lemon.png', 'img/lemon.png', 'img/raspberry.png', 'img/watermelon.png', 'img/strawberry.png', 'img/watermelon.png', 'img/orange.png', 'img/apple.png', 'img/blue_berry.png', 'img/strawberry.png', 'img/grapes.png'];
+  function checkMatch() {
+    if (
+      flippedCards[0].querySelector(".back").style.backgroundImage ===
+      flippedCards[1].querySelector(".back").style.backgroundImage
+    ) {
+      flippedCards = [];
+      flippedCards[0].querySelector(".back").style.display= 'none';
+      flippedCards[1].querySelector(".back").style.display = 'none';
+      currentScore = currentScore + 100;
+      score.innerText = currentScore;
 
-  shuffle(fruits);
-
-  Array.from(imgs).forEach((element, index) => {
-    element.src = fruits[index];
-
-    if (imgs[index].classList.contains('flipper-test')) {
-      imgs[index].classList.toggle('flipped');
+    } else {
+      currentScore = currentScore - 50;
+      score.innerText = currentScore;
+      setTimeout(flipBack, 1500);
     }
-    element.src = fruits[index];
-    element.addEventListener('click', flip);
-  });
+  }
 
-  score.innerText = '00';
-}
+  function flipBack() {
+    flippedCards[0].classList.toggle("flipped");
+    flippedCards[1].classList.toggle("flipped");
 
-createGameBoard();
+    flippedCards = [];
+  }
+
+  function finalize() {
+    var restart = document.getElementsByTagName("button")[0];
+    restart.addEventListener("click", dealDeck);
+
+    endGame.style.display = "flex";
+
+    if (scoreIncrementer === 8) {
+      endGame.querySelector("h1").innerText = "you win";
+    } else {
+      endGame.querySelector("h1").innerText = "you lose";
+    }
+    endGame.querySelector(".final-score").innerText =
+      "score: " + scoreIncrementer;
+  }
+
+  function shuffle(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+    }
+    return array;
+  }
+
+  dealDeck();
+})();
