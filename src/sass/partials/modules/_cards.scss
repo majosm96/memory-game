@@ -1,107 +1,28 @@
-.game {
-    justify-content: center;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    list-style: none;
-    padding: 0;
-}
-
-.cards {
-    width: 25%;
-    position: relative;
-    flex: 1 auto;
-    padding: 20px;
-
-    @include query(350px) {
-        padding: 22px;
-    }
-
-    @include query(380px) {
-        width: 23%;
-        padding: 25px;
-    }
-    
-    @include query(450px) {
-        width: 20%;
-        padding: 30px;
-    }
-    
-     @include query(550px) {
-        padding: 33px;
-    }
-
-    @include query(650px) {
-        padding: 38px;
-    }
-
-    @include query(800px) {
-        padding: 40px;
-    }
-
-    @include query(900px) {
-        padding: 45px;
-    }
-
-    @include query(1100px) {
-        padding: 50px;
-    }
-}
-
-.card {
-    text-align: center;
-    width: 100%;
-    margin: 0 auto;
-    backface-visibility: hidden;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-.flip-container {
-  perspective: 1000px;
-}
-
-
-// //Give the perpective
- .flipper {
-   transition: 0.6s;
-   transform-style: preserve-3d;
-   position: relative;
- }
-
-
-.flip-container {
-   transform: rotateY(180deg);
-}
-
-.front {
-    transform: rotateY(0deg);
-}
-
-.back {
-    transform: rotateY(180deg);
-}
-
-//Class to back face cards
-.flipper-test:hover {
-     transform: rotateY(180deg);
-}
-
-.fruits {
-    background-image: url(./img/orange.png);
-    background-position: center;
-
-}
 
 ///newbiews
 
 .container {
   width: 20%;
   margin: 2%;
-  height: 102px;
+  height: 74px;
   position: relative;
   perspective: 800px;
+
+  @include query(600px) {
+    height: 80px;
+  }
+
+  @include query(700px) {
+    height: 90px;
+  }
+
+  @include query(800px) {
+    height: 100px;
+  }
+
+  @include query(900px) {
+    margin: 0;
+  }
 }
 
 .responsive-border-center {
@@ -119,21 +40,17 @@
   padding-left: 3%;
 }
 
-.score {
-  margin-left: 5%;
-  width: 5%;
-  height: 50px;
-  text-align: center;
-  font-weight: 600;
-  font-size: 38pt;
-}
 
 .table {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 45%;
+  width: 90%;
   margin: 0 auto;
+
+  @include query(750px) {
+    width: 60%;
+  }
 }
 
 .card {
@@ -161,13 +78,45 @@
   background: url('../img/card01.png') no-repeat;
   background-size: 80%;
   background-position: center;
+
+  @include query(510px) {
+    background-size: 60%;
+  }
+
+  @include query(700px) {
+    background-size: 55%;
+  }
+
+  @include query(900px) {
+    background-size: 70%;
+  }
+
+  @include query(1200px) {
+    background-size: 55%;
+  }
 }
 
 .card .back {
   background: url('#') no-repeat;
-    background-size: 80%;
+  background-size: 80%;
   background-position: center;
   transform: rotateY(180deg);
+
+  @include query(510px) {
+    background-size: 60%;
+  }
+
+  @include query(700px) {
+    background-size: 55%;
+  }
+
+  @include query(900px) {
+    background-size: 70%;
+  }
+
+  @include query(1200px) {
+    background-size: 55%;
+  }
 }
 
 .timer {

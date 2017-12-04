@@ -22,9 +22,9 @@
 }
 
 .section-wrap {
-    padding: $space-base $space-base;
+    padding: 0 $space-base;
 
-    // @include query(600px) {
-    //     padding: $space-x-large $space-medium;
-    // }
+    @include query(600px) {
+        padding: $space-base $space-base;
+    }
 }
