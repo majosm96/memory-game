@@ -1,9 +1,22 @@
 let countDown = 0;
 let currentScore = 0;
 let flippedCards;
+let countCards = 0;
+let flippedCardsCheckDataId;
 let flippedCardsCheck;
+let highestScoreValue;
 const highestScore = document.getElementById('bestScore');
 const score = document.getElementById('score');
+
+function finalize() {
+  const restart = document.getElementById('restart');
+  restart.addEventListener('click', dealDeck);
+  if (countDown === 10) {
+    Array.from(flippedCardsCheck).forEach((element) => {
+      element.classList.remove('flipped');
+    });
+  }
+}
 
 function dealDeck() {
   const card = document.getElementsByClassName('card');
@@ -11,6 +24,7 @@ function dealDeck() {
 
   flippedCards = [];
   flippedCardsCheck = [];
+  flippedCardsCheckDataId = [];
 
   shuffle(pics);
 
@@ -20,21 +34,33 @@ function dealDeck() {
     }
     card[i].querySelector('.back').style.backgroundImage = pics[i];
     card[i].addEventListener('click', flip);
+
+    if (countDown === 10) {
+      Array.from(flippedCardsCheck).forEach((element) => {
+        card[i].classList.remove('flipped');
+        console.log('test', element);
+      });
+    }
   }
 
   score.innerText = currentScore;
-
-  finalize();
 }
 
 function flip() {
   if (!this.classList.contains('flipped') && flippedCards.length < 2) {
-    this.classList.toggle('flipped');
 
+    this.classList.toggle('flipped');
+    //Set new data id for check flipped card
+    this.setAttribute('data-id', countCards);
+
+    //Push data id for check flipped card
+    countCards += 1;
     flippedCards.push(this);
     flippedCardsCheck.push(this);
+    flippedCardsCheckDataId.push(this.dataset.id);
 
-    console.log(flippedCardsCheck);
+    console.error(flippedCardsCheck);
+    console.error(flippedCardsCheckDataId);
 
     if (flippedCards.length === 2) {
       checkMatch();
@@ -43,27 +69,33 @@ function flip() {
 }
 
 function checkFlippedCard() {
-  Array.from(flippedCards).forEach((element, index) => {  
-    if (flippedCards[index].querySelector('.back').style.backgroundImage === element.querySelector('.back').style.backgroundImage) {
-      score.innerText = currentScore;
+  for (let i = 0; i < flippedCardsCheckDataId.length; i++) {
+    if (flippedCardsCheckDataId[i] === flippedCardsCheck[0].querySelector('.back').dataset.id || flippedCardsCheckDataId[i] === flippedCardsCheck[1].querySelector('.back').dataset.id) {
+      console.log("testing");
       currentScore -= 50;
+      score.innerText = currentScore;
     }
-  });
+  }
 }
 
 function checkMatch() {
   if (flippedCards[0].querySelector('.back').style.backgroundImage === flippedCards[1].querySelector('.back').style.backgroundImage) {      
     currentScore += 100;
     score.innerText = currentScore;
-    countDown = 1;
 
+    //Hide cards before match
     setTimeout(() => { 
       flippedCards[0].querySelector('.back').style.display = 'none';
       flippedCards[1].querySelector('.back').style.display = 'none';
       flippedCards = [];
     }, 1000);
+
+    countDown += 1;
+    console.log(countDown);
+
   } else {
     checkFlippedCard();
+    console.log('testing');
     setTimeout(flipBack, 1500);
   }
 }
@@ -75,14 +107,6 @@ function flipBack() {
   flippedCards = [];
 }
 
-function finalize() {
-  const restart = document.getElementById('restart');
-  restart.addEventListener('click', dealDeck);
-  if (countDown > 9) {
-    dealDeck();
-  }
-}
-
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -92,5 +116,6 @@ function shuffle(array) {
   }
   return array;
 }
+
 
 dealDeck();
