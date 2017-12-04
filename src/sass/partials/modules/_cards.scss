@@ -94,6 +94,14 @@
   @include query(1200px) {
     background-size: 55%;
   }
+
+  @include query(1300px) {
+    background-size: 50%;
+  }
+
+  @include query(1400px) {
+    background-size: 48%;
+  }
 }
 
 .card .back {
@@ -116,6 +124,14 @@
 
   @include query(1200px) {
     background-size: 55%;
+  }
+
+  @include query(1300px) {
+    background-size: 50%;
+  }
+
+  @include query(1400px) {
+    background-size: 48%;
   }
 }
 
