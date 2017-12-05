@@ -100,7 +100,7 @@
   }
 
   @include query(1400px) {
-    background-size: 48%;
+    background-size: 45%;
   }
 }
 
@@ -131,8 +131,9 @@
   }
 
   @include query(1400px) {
-    background-size: 48%;
+    background-size: 45%;
   }
+  
 }
 
 .timer {
