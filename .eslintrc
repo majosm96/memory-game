@@ -10,7 +10,8 @@
       "line-break-style": 0,
       "skipBlankLines": true,
       "no-console": 0,
-      "wrap-iife": 0
+      "wrap-iife": 0,
+      "consistent-return": 0
   }
 }
 
