@@ -1,8 +1,12 @@
 .info-card {
-    background-color: $yellow;
     padding: $space-base $space-base;
     display: inline-block;
-    color: $font-color-base;
+    background-color: #507e92;
+    border-radius: 20px;
+    padding: 0.3rem 1rem;
+    display: inline-block;
+    color: #fff;
+    font-weight: 800;
     width: 100%;
 }
 

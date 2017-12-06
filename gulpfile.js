@@ -11,7 +11,7 @@ var sass = require('gulp-sass')
 var sourcemaps = require('gulp-sourcemaps')
 var prefix = require('gulp-autoprefixer')
 var connect = require('gulp-connect')
-var eyeglass = require("eyeglass")
+var eyeglass = require('eyeglass')
 var kss = require('kss')
 var eslint = require('gulp-eslint')
 var babel = require('gulp-babel')
@@ -20,7 +20,7 @@ var htmlmin = require('gulp-htmlmin')
 var uglify = require('gulp-uglify')
 var del = require('del')
 var imagemin = require('gulp-imagemin')
-
+var workbox = require('workbox-build')
 //
 // Begin Gulp Tasks.
 //
@@ -176,6 +176,26 @@ gulp.task('clean', function () {
     'dist'
   ])
 })
+
+//
+// Generate Service Worker
+//
+const dist = './dist';
+
+gulp.task('generate-service-worker', () => {
+  return workbox.generateSW({
+    globDirectory: dist,
+    globPatterns: ['**\/*.{html,js,css, img}'],
+    swDest: `${dist}/sw.js`,
+    clientsClaim: true,
+    skipWaiting: true,
+  }).then(() => {
+    console.info('Service worker generation completed.');
+  }).catch((error) => {
+    console.warn('Service worker generation failed: ' + error);
+  });
+});
+
 
 //
 // Composite Task declarations.
